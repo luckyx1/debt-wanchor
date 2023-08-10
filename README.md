@@ -2,14 +2,21 @@
 A way to compete with two(or more) people doing Wanikani together
 
 ## Init setup
+
 Install ruby version(on mac I used rbenv)
+
 run `gem install bundler`
+
 run `gem install rails` (version 7 at this time)
+
 run `bundle install`
+
 run `rails db:migrate`
+
 run server with 
 `rails s`
-on your browser go to localhost:3000
+
+on your browser go to `localhost:3000`
 
 
 * Ruby version
@@ -19,15 +26,15 @@ on your browser go to localhost:3000
 * System dependencies
 mysql
 * Configuration
-
+TBD
 * Database creation
-
+TBD
 * Database initialization
-
+TBD
 * How to run the test suite
-
+TBD
 * Services (job queues, cache servers, search engines, etc.)
-
+TBD
 * Deployment instructions
+TBD
 
-* ...
