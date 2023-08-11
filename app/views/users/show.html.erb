@@ -1,0 +1,7 @@
+<h2>Showing User record</h2>
+<%= form_with model: @user do |form| %>
+  <%= form.text_field :name %>
+  <%= form.number_field :debt, step: 1 %>
+<% end %>
+
+<%= link_to "All Users", users_path %>

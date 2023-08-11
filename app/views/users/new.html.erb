@@ -1,0 +1,9 @@
+<h2>Create a User?</h2>
+
+<%= form_with model: @user do |form| %>
+  <%= form.text_field :name %>
+  <%= form.number_field :debt, step: 1 %>
+  <%= form.submit %>
+<% end %>
+
+<%= link_to "All Users", users_path %>
