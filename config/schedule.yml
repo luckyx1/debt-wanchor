@@ -1,0 +1,6 @@
+# config/schedule.yml
+update_debt_job:
+  # cron: '0 * * * *' # Run every hour
+  cron: '*/5 * * * *' # Run every 5 min
+  class: UpdateDebtJob # Your job class
+  queue: default
