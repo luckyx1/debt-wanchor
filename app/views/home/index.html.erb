@@ -1,12 +1,22 @@
-<h1>Highcharts?</h1>
+<h1>Current debt for users</h1>
 
-<form action="/">
-  <label for="user">Select a user:</label>
-  <select name="user" id="user_select">
-    <option value="bob">Bob</option>
-    <option value="homura">Homura</option>
-  </select>
-  <label for="debt">Debt:</label>
-  <input type="number" id="debt" name="debt">
-  <input type="submit" value="Submit">
-</form>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Debt</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.name %></td>
+        <td><%= user.debt %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to "Evaluate from WaniKani", evaluate_wanikani_home_index_path %>
