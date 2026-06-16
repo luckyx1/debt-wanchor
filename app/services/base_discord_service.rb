@@ -2,12 +2,14 @@
 
 # Represents generic logic to extract data from Wanikani
 class BaseDiscordService
-  # move these to config
-  DEBT_WANI = 'https://discord.com/api/webhooks/1146632196459864114/7jm9OTdacceEr_lmXNzpakMSxK24tCPaEoxfmrfQ-bUCSDjQa8iVPgvCm3p_NG6C1TBm'
-  WANIKANI_URL = 'https://discord.com/api/webhooks/1146637394372739194/Hm6yk-ouh9QsFCi7asJgLNb5IhhnZboDWUJM2X_UCd4xEIAjUCWw856MpGvvwwQD662g'
+  def initialize(webhook_url: default_webhook_url)
+    raise 'Please set WANIKANI_DISCORD_WEBHOOK_URL' if webhook_url.blank?
+
+    @webhook_url = webhook_url
+  end
 
   def post_to_discord(msg:)
-    con = ::Faraday.new(url: WANIKANI_URL)
+    con = ::Faraday.new(url: @webhook_url)
     response = con.post do |req|
       req.headers['Content-Type'] = 'application/json'
       req.body = { content: msg }.to_json
@@ -17,5 +19,12 @@ class BaseDiscordService
     else
       puts 'MSG FAILED to send to discord'
     end
+  end
+
+  private
+
+  def default_webhook_url
+    ENV['WANIKANI_DISCORD_WEBHOOK_URL'] ||
+      Rails.application.credentials[:wanikani_discord_webhook_url]
   end
 end
