@@ -40,6 +40,15 @@ class HomeTest < ActiveSupport::TestCase
     assert_equal 4, Home.get_review(summary_data)
   end
 
+  test 'get_debt returns the combined lesson and review count' do
+    summary_data = {
+      'lessons' => [{ 'subject_ids' => [1, 2, 3] }],
+      'reviews' => [{ 'subject_ids' => [4, 5] }]
+    }
+
+    assert_equal 5, Home.get_debt(summary_data)
+  end
+
   test 'evaluate_wani returns a lesson and review summary for each user' do
     User.create!(name: 'robert', debt: 0)
     User.create!(name: 'peer', debt: 0)

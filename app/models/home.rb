@@ -25,4 +25,8 @@ class Home < ActiveRecord::Base
     reviews_to_do = data_from_wanikani.fetch('reviews')[0].fetch('subject_ids')
     reviews_to_do.count
   end
+
+  def self.get_debt(data_from_wanikani)
+    get_lesson(data_from_wanikani) + get_review(data_from_wanikani)
+  end
 end
