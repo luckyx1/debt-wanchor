@@ -18,7 +18,7 @@ class Home < ActiveRecord::Base
     lessons = get_lesson(summary_data)
     reviews = get_review(summary_data)
 
-    { name: user.name, lessons:, reviews:, debt: get_debt(summary_data) }
+    { name: user.name, lessons:, reviews:, debt: lessons + reviews }
   end
 
   # Returns count of lessons from wanikani data
