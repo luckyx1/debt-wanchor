@@ -17,7 +17,7 @@ This checklist captures the current project state and the agreed implementation 
 ## Next
 
 - [x] Define the debt metric as lessons + reviews.
-- [ ] Represent each user's WaniKani result as structured data instead of only a sentence.
+- [x] Represent each user's WaniKani result as structured data instead of only a sentence.
 - [x] Add tests for the chosen total/debt calculation before implementing it.
 - [ ] Implement the two-person comparison: totals, difference, and ratio.
 - [ ] Add edge-case tests, including equal totals and division by zero.

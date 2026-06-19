@@ -49,6 +49,17 @@ class HomeTest < ActiveSupport::TestCase
     assert_equal 5, Home.get_debt(summary_data)
   end
 
+  test 'summary_for returns structured WaniKani counts for a user' do
+    user = User.create!(name: 'robert', debt: 0)
+
+    SummaryWanikaniService.stub(:new, ->(username:) { FakeSummaryService.new(username:) }) do
+      assert_equal(
+        { name: 'robert', lessons: 3, reviews: 2, debt: 5 },
+        Home.summary_for(user)
+      )
+    end
+  end
+
   test 'evaluate_wani returns a lesson and review summary for each user' do
     User.create!(name: 'robert', debt: 0)
     User.create!(name: 'peer', debt: 0)
