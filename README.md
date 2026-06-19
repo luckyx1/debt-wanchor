@@ -2,7 +2,6 @@
 A way to compete with two(or more) people doing Wanikani together
 
 ## Init setup
-
 Install ruby version(on mac I used rbenv)
 
 run `gem install bundler`
@@ -18,6 +17,9 @@ run server with
 
 on your browser go to `localhost:3000`
 
+## Start background job
+bundle exec sidekiq
+
 
 * Ruby version
 3.1.2
@@ -26,7 +28,7 @@ on your browser go to `localhost:3000`
 * System dependencies
 mysql
 * Configuration
-TBD
+set api keys in rails credentials:edit
 * Database creation
 TBD
 * Database initialization

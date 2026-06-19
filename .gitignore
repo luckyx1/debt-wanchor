@@ -47,6 +47,7 @@ capybara-*.html
 *.orig
 rerun.txt
 pickle-email-*.html
+config/credentials.yml.enc
 
 # Ignore all logfiles and tempfiles.
 /log/*
