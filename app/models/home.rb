@@ -6,12 +6,19 @@ class Home < ActiveRecord::Base
   def self.evaluate_wani
     result = []
     User.all.each do |user|
-      summary_data = SummaryWanikaniService.new(username: user.name).fetch_summary_data
-      lessons = get_lesson(summary_data)
-      reviews = get_review(summary_data)
-      result << "#{user.name} has #{lessons} lessons to do and #{reviews} review to do"
+      summary = summary_for(user)
+      result << "#{summary[:name]} has #{summary[:lessons]} lessons to do " \
+                "and #{summary[:reviews]} review to do"
     end
     result.join(' , ')
+  end
+
+  def self.summary_for(user)
+    summary_data = SummaryWanikaniService.new(username: user.name).fetch_summary_data
+    lessons = get_lesson(summary_data)
+    reviews = get_review(summary_data)
+
+    { name: user.name, lessons:, reviews:, debt: lessons + reviews }
   end
 
   # Returns count of lessons from wanikani data
@@ -24,5 +31,9 @@ class Home < ActiveRecord::Base
   def self.get_review(data_from_wanikani)
     reviews_to_do = data_from_wanikani.fetch('reviews')[0].fetch('subject_ids')
     reviews_to_do.count
+  end
+
+  def self.get_debt(data_from_wanikani)
+    get_lesson(data_from_wanikani) + get_review(data_from_wanikani)
   end
 end
