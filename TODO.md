@@ -19,8 +19,8 @@ This checklist captures the current project state and the agreed implementation 
 - [x] Define the debt metric as lessons + reviews.
 - [x] Represent each user's WaniKani result as structured data instead of only a sentence.
 - [x] Add tests for the chosen total/debt calculation before implementing it.
-- [ ] Implement the two-person comparison: totals, difference, and ratio.
-- [ ] Add edge-case tests, including equal totals and division by zero.
+- [x] Implement the two-person comparison: totals, difference, and ratio.
+- [x] Add edge-case tests, including equal totals and division by zero.
 - [ ] Format a clear Discord comparison message.
 - [ ] Re-enable Discord posting in `UpdateDebtJob`.
 - [ ] Add job tests that verify Discord is called without making network requests.
