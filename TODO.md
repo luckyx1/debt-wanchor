@@ -21,7 +21,7 @@ This checklist captures the current project state and the agreed implementation 
 - [x] Add tests for the chosen total/debt calculation before implementing it.
 - [x] Implement the two-person comparison: totals, difference, and ratio.
 - [x] Add edge-case tests, including equal totals and division by zero.
-- [ ] Format a clear Discord comparison message.
+- [x] Format a clear Discord comparison message.
 - [ ] Re-enable Discord posting in `UpdateDebtJob`.
 - [ ] Add job tests that verify Discord is called without making network requests.
 - [ ] Decide whether the latest WaniKani total should update `users.debt`.
