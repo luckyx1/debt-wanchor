@@ -1,42 +1,118 @@
-# debt-wanchor
-A way to compete with two(or more) people doing Wanikani together
+# Debt Wanchor
 
-## Init setup
-Install ruby version(on mac I used rbenv)
+Debt Wanchor compares WaniKani lesson and review workloads for two or more users and can publish the result to Discord.
 
-run `gem install bundler`
+## Requirements
 
-run `gem install rails` (version 7 at this time)
+- Ruby 3.1.2
+- Bundler 2.4.18
+- MySQL
+- Redis when running Sidekiq
 
-run `bundle install`
+The examples below use `rbenv` on macOS. Equivalent Ruby and service managers are fine.
 
-run `rails db:migrate`
+## Local Setup
 
-run server with 
-`rails s`
+Install and select the expected Ruby version:
 
-on your browser go to `localhost:3000`
+```bash
+rbenv install 3.1.2
+rbenv local 3.1.2
+gem install bundler -v 2.4.18
+```
 
-## Start background job
-bundle exec sidekiq
+Install the project gems:
 
+```bash
+bundle install
+```
 
-* Ruby version
-3.1.2
-* Rails version
-7.0.7
-* System dependencies
-mysql
-* Configuration
-set api keys in rails credentials:edit
-* Database creation
-TBD
-* Database initialization
-TBD
-* How to run the test suite
-TBD
-* Services (job queues, cache servers, search engines, etc.)
-TBD
-* Deployment instructions
-TBD
+Start MySQL and confirm it is available through the socket configured in `config/database.yml`:
 
+```bash
+brew services start mysql
+mysqladmin --socket=/tmp/mysql.sock --user=root ping
+```
+
+Prepare the development and test databases:
+
+```bash
+bundle exec rails db:prepare
+RAILS_ENV=test bundle exec rails db:prepare
+```
+
+The default database configuration expects a local MySQL `root` user with no password. Use `DATABASE_URL` if your local setup differs.
+
+## Credentials
+
+Edit Rails credentials:
+
+```bash
+EDITOR="code --wait" bundle exec rails credentials:edit
+```
+
+Add one WaniKani API key for each application user. The credential name must match the user's name:
+
+```yaml
+robert_wanikani_api_key: your_wanikani_api_key
+peer_wanikani_api_key: their_wanikani_api_key
+wanikani_discord_webhook_url: your_discord_webhook_url
+```
+
+The Discord webhook can instead be provided through the environment:
+
+```bash
+export WANIKANI_DISCORD_WEBHOOK_URL="your_discord_webhook_url"
+```
+
+Never commit API keys, webhook URLs, `config/master.key`, or decrypted credentials.
+
+## Running Tests
+
+The model and service tests stub WaniKani and Discord, so they do not make real network calls or require real API credentials.
+
+Run the full Rails test suite:
+
+```bash
+rbenv exec bundle exec rails test
+```
+
+Run a focused test file:
+
+```bash
+rbenv exec bundle exec rails test test/models/home_test.rb
+rbenv exec bundle exec rails test test/services/base_discord_service_test.rb
+```
+
+Run a specific test by line number:
+
+```bash
+rbenv exec bundle exec rails test test/models/home_test.rb:43
+```
+
+If Rails reports pending test migrations, run:
+
+```bash
+RAILS_ENV=test rbenv exec bundle exec rails db:migrate
+```
+
+## Running the App
+
+Start Rails:
+
+```bash
+rbenv exec bundle exec rails server
+```
+
+Open `http://localhost:3000`.
+
+## Running Background Jobs
+
+Start Redis, then Sidekiq:
+
+```bash
+brew services start redis
+rbenv exec bundle exec sidekiq
+```
+
+The recurring job schedule is defined in `config/schedule.yml`.
